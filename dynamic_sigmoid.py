@@ -23,11 +23,11 @@ class DynamicSigmoid(nn.Module):
     def extra_repr(self):
         return f"normalized_shape={self.normalized_shape}, alpha_init_value={self.alpha_init_value}, channels_last={self.channels_last}"
 
-def convert_ln_to_dys(module):
+def convert_ln_to_dysg(module):
     module_output = module
     if isinstance(module, nn.LayerNorm):
         module_output = DynamicSigmoid(module.normalized_shape, not isinstance(module, LayerNorm2d))
     for name, child in module.named_children():
-        module_output.add_module(name, convert_ln_to_dys(child))
+        module_output.add_module(name, convert_ln_to_dysg(child))
     del module
     return module_output

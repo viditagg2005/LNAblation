@@ -33,6 +33,8 @@ from utils import NativeScalerWithGradNormCount as NativeScaler
 import utils
 
 from dynamic_tanh import convert_ln_to_dyt
+from dynamic_sigmoid import convert_ln_to_dysg
+from dynamic_softsign import convert_ln_to_dyss
 
 
 def str2bool(v):
@@ -308,10 +310,10 @@ def main(args):
         model = convert_ln_to_dyt(model)
 
     if args.dynamic_sigmoid:
-        model = convert_ln_to_dyt(model) ## change this to analogous function
+        model = convert_ln_to_dysg(model) ## change this to analogous function
 
     if args.dynamic_softsign:
-        model = convert_ln_to_dyt(model) ## change this to analogous function
+        model = convert_ln_to_dyss(model) ## change this to analogous function
 ################################ 
     if args.finetune:
         if args.finetune.startswith('https'):
