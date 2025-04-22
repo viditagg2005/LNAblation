@@ -204,6 +204,10 @@ def get_args_parser():
     
     parser.add_argument('--dynamic_tanh', type=str2bool, default=False)
 
+    parser.add_argument('--dynamic_sigmoid', type=str2bool, default=False)
+
+    parser.add_argument('--dynamic_sofsign', type=str2bool, default=False)
+
     return parser
 
 def main(args):
@@ -299,10 +303,16 @@ def main(args):
         )
     else:
         raise ValueError(f"Unrecognized model: {args.model}")
-
+################################
     if args.dynamic_tanh:
         model = convert_ln_to_dyt(model)
 
+    if args.dynamic_sigmoid:
+        model = convert_ln_to_dyt(model) ## change this to analogous function
+
+    if args.dynamic_softsign:
+        model = convert_ln_to_dyt(model) ## change this to analogous function
+################################ 
     if args.finetune:
         if args.finetune.startswith('https'):
             checkpoint = torch.hub.load_state_dict_from_url(
