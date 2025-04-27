@@ -35,6 +35,8 @@ import utils
 from dynamic_tanh import convert_ln_to_dyt
 from dynamic_sigmoid import convert_ln_to_dysg
 from dynamic_softsign import convert_ln_to_dyss
+from batch_norm import convert_ln_to_dynbn
+from rms_norm import convert_ln_to_rms
 
 
 def str2bool(v):
@@ -204,11 +206,13 @@ def get_args_parser():
     parser.add_argument('--wandb_ckpt', type=str2bool, default=False,
                         help="Save model checkpoints as W&B Artifacts.")
     
+    # Normalization parameters
+    
     parser.add_argument('--dynamic_tanh', type=str2bool, default=False)
-
     parser.add_argument('--dynamic_sigmoid', type=str2bool, default=False)
-
     parser.add_argument('--dynamic_softsign', type=str2bool, default=False)
+    parser.add_argument('--rms_norm', type = str2bool, default= False)
+    parser.add_argument('--batch_norm', type = str2bool, default= False)
 
     return parser
 
@@ -314,6 +318,10 @@ def main(args):
 
     if args.dynamic_softsign:
         model = convert_ln_to_dyss(model) ## change this to analogous function
+    if args.rms_norm:
+        model = convert_ln_to_rms(model) ## change this to analogous function
+    if args.batch_norm:
+        model = convert_ln_to_dynbn(model) ## change this to analogous function
 ################################ 
     if args.finetune:
         if args.finetune.startswith('https'):
