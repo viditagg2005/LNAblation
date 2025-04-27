@@ -3,8 +3,8 @@ import torch.nn as nn
 from timm.layers import LayerNorm2d
 
 class DynamicSigmoid(nn.Module):
-    def _init_(self, normalized_shape, channels_last, alpha_init_value=0.5):
-        super()._init_()
+    def __init__(self, normalized_shape, channels_last, alpha_init_value=0.5):
+        super().__init__()
         self.normalized_shape = normalized_shape
         self.alpha_init_value = alpha_init_value
         self.channels_last = channels_last

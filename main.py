@@ -208,7 +208,7 @@ def get_args_parser():
 
     parser.add_argument('--dynamic_sigmoid', type=str2bool, default=False)
 
-    parser.add_argument('--dynamic_sofsign', type=str2bool, default=False)
+    parser.add_argument('--dynamic_softsign', type=str2bool, default=False)
 
     return parser
 
